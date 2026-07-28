@@ -4,16 +4,6 @@
 > on the far side of the mirror, where you go on purpose and everything is
 > reflected, backwards, and wrong.
 
-    Ich baue mir ein Luftschloss
-    aus Nebel und aus Nacht,
-    kein Stein, kein Grund, kein Boden,
-    nur das, was Sehnsucht macht.
-
-    Und faellt es, faellt es lautlos,
-    denn Luft zerbricht ja nie.
-    Was nie den Boden anruehrt,
-    das stuerzt auch niemals hie.
-
 > «Ніколи не вгадаєш, ким станеш за хвилину.»
 >
 > "You can never guess who you'll become in a minute." - Alice, in the
