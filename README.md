@@ -2,15 +2,13 @@
 
 <img width="736" height="414" alt="image" src="https://github.com/user-attachments/assets/3107c33c-aa62-414d-80e1-64aff05ae766" />
 
-> Alisa v Zadzerkalli (Ukrainian) - Alice Through the Looking-Glass. The world
-> on the far side of the mirror, where you go on purpose and everything is
-> reflected, backwards, and wrong.
+Alisa v Zadzerkalli (Ukrainian) - Alice Through the Looking-Glass. The world
+on the far side of the mirror, where you go on purpose and everything is
+reflected, backwards, and wrong.
 
 > «Ніколи не вгадаєш, ким станеш за хвилину.»
->
 > "You can never guess who you'll become in a minute." - Alice, in the
-> Ukrainian Аліса в Країні Див, trans. Valentyn Korniienko, ed. Ivan Malkovych
-> (A-BA-BA-HA-LA-MA-HA, 2013), p. 53.
+> Аліса в Країні Див, trans. Valentyn Korniienko, ed. Ivan Malkovych p. 53.
 
 A Discord bot written in C++.
 
