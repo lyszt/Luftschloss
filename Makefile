@@ -1,26 +1,36 @@
-CXX      := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra -Wpedantic -g
-TARGET   := luftschloss_core
-SRCS     := main.cpp
-OBJS     := $(SRCS:.cpp=.o)
+BUILD_DIR := build
+TARGET    := luftschloss_core
 
-.PHONY: all run clean cmake
+# Cap parallel compile jobs. An uncapped -j spawns one heavy C++ process per
+# core at once and can exhaust RAM. Override on the command line: make JOBS=4
+JOBS ?= 2
 
-all: $(TARGET)
+.PHONY: all deps run clean rebuild
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+all: deps
+	cmake -S . -B $(BUILD_DIR)
+	cmake --build $(BUILD_DIR) -j$(JOBS)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+# Install the DPP Discord library from the AUR if it is not already present.
+# MAKEFLAGS caps makepkg's own compile so the install cannot OOM the machine.
+deps:
+	@if pkg-config --exists dpp 2>/dev/null || [ -f /usr/include/dpp/dpp.h ]; then \
+		echo "dpp already installed"; \
+	elif command -v yay >/dev/null 2>&1; then \
+		echo "dpp not found, installing from AUR with yay (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm dpp; \
+	elif command -v paru >/dev/null 2>&1; then \
+		echo "dpp not found, installing from AUR with paru (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm dpp; \
+	else \
+		echo "dpp not found and no AUR helper (yay/paru). Install dpp manually."; \
+		exit 1; \
+	fi
 
-run: $(TARGET)
-	./$(TARGET)
+run: all
+	./$(BUILD_DIR)/$(TARGET)
 
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	$(RM) -r $(BUILD_DIR)
 
-# Out-of-source CMake build into build/
-cmake:
-	cmake -S . -B build
-	cmake --build build
+rebuild: clean all
