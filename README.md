@@ -1,6 +1,6 @@
 # Аліса в Задзеркаллі
 
-<img width="1152" height="2048" alt="image" src="https://github.com/user-attachments/assets/ee19f020-2581-4315-acaa-dea164273072" />
+<img width="736" height="414" alt="image" src="https://github.com/user-attachments/assets/3107c33c-aa62-414d-80e1-64aff05ae766" />
 
 > Alisa v Zadzerkalli (Ukrainian) - Alice Through the Looking-Glass. The world
 > on the far side of the mirror, where you go on purpose and everything is
