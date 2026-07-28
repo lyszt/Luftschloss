@@ -14,6 +14,12 @@
     Was nie den Boden anruehrt,
     das stuerzt auch niemals hie.
 
+> «Ніколи не вгадаєш, ким станеш за хвилину.»
+>
+> "You can never guess who you'll become in a minute." - Alice, in the
+> Ukrainian Аліса в Країні Див, trans. Valentyn Korniienko, ed. Ivan Malkovych
+> (A-BA-BA-HA-LA-MA-HA, 2013), p. 53.
+
 A Discord bot written in C++.
 
 A Discord bot has no reason to be written in C++. It has even less reason to
