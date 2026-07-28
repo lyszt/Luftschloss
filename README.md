@@ -33,25 +33,6 @@ The plan, such as it is:
 - Track solved problems, streaks, and progress over time
 - Serve a problem sized to your current level, on command
 
-## Build
-
-Install the DPP Discord library once, then build. The Makefile handles the
-dependency for you:
-
-    make
-
-Run it:
-
-    make run
-
-Parallel compile jobs are capped so the build cannot exhaust memory. Raise the
-cap if your machine can take it:
-
-    make JOBS=4
-
-Requires a C++20 compiler, CMake 3.16 or newer, and DPP. On Arch the Makefile
-installs DPP from the AUR through yay or paru if it is missing.
-
 ## Layout
 
 - main.cpp - entry point
