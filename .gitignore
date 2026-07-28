@@ -1,0 +1,4 @@
+/build/
+*.o
+/luftschloss_core
+compile_commands.json
