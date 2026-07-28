@@ -4,9 +4,8 @@
 > nothing. The word for a daydream you have no business chasing, a grand plan
 > with no foundation under it. You build it anyway.
 
-A Discord bot written in C++, meant to one day automate the grind of studying
-for competitive programming. Right now it is a scaffold that prints its own
-name and little else. The castle is still air.
+A Discord bot written in C++, meant to automate the grind of studying for
+competitive programming.
 
 ## Origin
 
