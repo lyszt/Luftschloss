@@ -4,8 +4,9 @@
 > nothing. The word for a daydream you have no business chasing, a grand plan
 > with no foundation under it. You build it anyway.
 
-A Discord bot written in C++, built to automate the grind of studying for
-competitive programming.
+A Discord bot written in C++, meant to one day automate the grind of studying
+for competitive programming. Right now it is a scaffold that prints its own
+name and little else. The castle is still air.
 
 ## Origin
 
@@ -24,9 +25,9 @@ student toward the next contest whether they feel like it or not.
 Every overbuilt corner of this repo is load-bearing for exactly one thing: the
 vibe. That is enough.
 
-## What it does
+## The dream
 
-The plan, such as it is:
+None of this is built yet. This is the shape the castle wants to take:
 
 - Pull problems from the usual judges by rating and tag
 - Announce upcoming contests in a channel
