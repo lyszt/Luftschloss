@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(wunderland_core LANGUAGES CXX)
+project(alisa-v-zadzerkalli_core LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,6 +15,6 @@ endif()
 # what exhausted RAM. Install it once with `make deps`, driven by the Makefile.
 find_package(dpp REQUIRED)
 
-add_executable(wunderland_core main.cpp)
-target_compile_options(wunderland_core PRIVATE -Wall -Wextra)
-target_link_libraries(wunderland_core PRIVATE dpp::dpp)
+add_executable(alisa-v-zadzerkalli_core main.cpp)
+target_compile_options(alisa-v-zadzerkalli_core PRIVATE -Wall -Wextra)
+target_link_libraries(alisa-v-zadzerkalli_core PRIVATE dpp::dpp)

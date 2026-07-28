@@ -1,7 +1,8 @@
-# Wunderland
+# Аліса в Задзеркаллі
 
-> Wunderland (German, noun) - wonderland. The country on the other side of the
-> rabbit hole. How far down the madness goes is measured in here.
+> Alisa v Zadzerkalli (Ukrainian) - Alice Through the Looking-Glass. The world
+> on the far side of the mirror, where you go on purpose and everything is
+> reflected, backwards, and wrong.
 
     Ich baue mir ein Luftschloss
     aus Nebel und aus Nacht,

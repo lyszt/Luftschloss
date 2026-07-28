@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-    std::cout << "wunderland_core\n";
+    std::cout << "alisa-v-zadzerkalli_core\n";
     return 0;
 }
