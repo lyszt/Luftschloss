@@ -1,4 +1,4 @@
 /build/
 *.o
-/luftschloss_core
+/wunderland_core
 compile_commands.json

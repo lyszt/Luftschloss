@@ -1,7 +1,7 @@
-# Luftschloss
+# Wunderland
 
-> Luftschloss (German, noun) - a castle in the air. A structure with no
-> foundation. A daydream you keep building anyway.
+> Wunderland (German, noun) - wonderland. The country on the other side of the
+> rabbit hole. How far down the madness goes is measured in here.
 
     Ich baue mir ein Luftschloss
     aus Nebel und aus Nacht,

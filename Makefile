@@ -1,5 +1,5 @@
 BUILD_DIR := build
-TARGET    := luftschloss_core
+TARGET    := wunderland_core
 
 # Cap parallel compile jobs. An uncapped -j spawns one heavy C++ process per
 # core at once and can exhaust RAM. Override on the command line: make JOBS=4
