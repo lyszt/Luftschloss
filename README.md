@@ -1,37 +1,23 @@
 # Luftschloss
 
-> Luftschloss (German) - literally "air castle". A castle built in the sky, on
-> nothing. The word for a daydream you have no business chasing, a grand plan
-> with no foundation under it. You build it anyway.
+> Luftschloss (German, noun) - a castle in the air. A structure with no
+> foundation. A daydream you keep building anyway.
 
-A Discord bot written in C++, meant to automate the grind of studying for
-competitive programming.
+    Ich baue mir ein Luftschloss
+    aus Nebel und aus Nacht,
+    kein Stein, kein Grund, kein Boden,
+    nur das, was Sehnsucht macht.
 
-## Origin
+    Und faellt es, faellt es lautlos,
+    denn Luft zerbricht ja nie.
+    Was nie den Boden anruehrt,
+    das stuerzt auch niemals hie.
 
-The name is a confession. Luftschloss is what the Germans call the palace you
-raise in thin air - all spires and no ground beneath it. That is the honest
-shape of this project. A Discord bot has no reason to be written in C++. It has
-even less reason to reach for hand-written assembly, to eye Ada across the
-border, to dream in RISC-V on a machine that speaks x86. None of it is
-necessary. All of it is the point.
+A Discord bot written in C++.
 
-So the castle goes up in the air. The foundation can come later, or never. What
-matters is that it is being built, one impractical stone at a time, and that it
-does something real in the end - drills problems, tracks streaks, and drags a
-student toward the next contest whether they feel like it or not.
-
-Every overbuilt corner of this repo is load-bearing for exactly one thing: the
-vibe. That is enough.
-
-## The dream
-
-None of this is built yet. This is the shape the castle wants to take:
-
-- Pull problems from the usual judges by rating and tag
-- Announce upcoming contests in a channel
-- Track solved problems, streaks, and progress over time
-- Serve a problem sized to your current level, on command
+A Discord bot has no reason to be written in C++. It has even less reason to
+reach for hand-written assembly. None of it is necessary. All of it is the
+point.
 
 ## Layout
 
