@@ -2,3 +2,4 @@
 *.o
 /alisa-v-zadzerkalli_core
 compile_commands.json
+.env
