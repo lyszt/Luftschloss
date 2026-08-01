@@ -52,6 +52,49 @@ Member::Member(const json &brief) {
   active = activeSince(brief.value("lastSeenTime", 0LL));
 }
 
+void Member::fetchProfile() {
+  if (username.empty()) {
+    std::cout << "[WARN] Skipping profile fetch, empty username." << std::endl;
+    return;
+  }
+  std::string url = "https://vjudge.net/user/" + username;
+  std::cout << "[INFO] Fetching profile for " << username << "..." << std::endl;
+  Requests request = Requests();
+  request.request(Method::Get, url, std::nullopt);
+  if (request.response.status_code != 200) {
+    std::cout << "[ERROR] Profile fetch for " << username << " returned status "
+              << request.response.status_code << "." << std::endl;
+    return;
+  }
+
+  try {
+    Html page;
+    if (!page.parse(request.response.text)) {
+      std::cout << "[ERROR] Failed to parse profile HTML for " << username << "."
+                << std::endl;
+      return;
+    }
+    auto holder = page.select("script#profile-header-data");
+    if (holder.empty()) {
+      std::cout << "[ERROR] No profile-header-data on page for " << username
+                << "." << std::endl;
+      return;
+    }
+    json data = json::parse(holder[0].text());
+    json counts = data.value("counts", json::object());
+    solved = counts.value("acAll", 0);
+    attempted = counts.value("attAll", 0);
+    rank = data.value("ranks", json::object()).value("all", 0LL);
+    std::cout << "[INFO] " << username << " rank=" << rank
+              << " solved=" << solved << " attempted=" << attempted << "."
+              << std::endl;
+  } catch (const std::exception &ex) {
+    std::cout << "[ERROR] Profile parse for " << username << " threw: "
+              << ex.what() << "." << std::endl;
+    return;
+  }
+}
+
 std::vector<Member> members;
 
 std::vector<Member> makeMembers() {
@@ -61,6 +104,8 @@ std::vector<Member> makeMembers() {
   Requests request = Requests();
   request.request(Method::Get, url, std::nullopt);
   if (request.response.status_code != 200) {
+    std::cout << "[ERROR] Group fetch returned status "
+              << request.response.status_code << "." << std::endl;
     return result;
   }
 
@@ -74,9 +119,15 @@ std::vector<Member> makeMembers() {
       return result;
     }
     json data = json::parse(holder[0].text());
+    std::cout << "[INFO] Found " << data["memberBriefs"].size()
+              << " members, fetching profiles..." << std::endl;
     for (const auto &brief : data["memberBriefs"]) {
-      result.emplace_back(brief);
+      Member member(brief);
+      member.fetchProfile();
+      result.push_back(std::move(member));
     }
+    std::cout << "[INFO] Loaded " << result.size() << " member profiles."
+              << std::endl;
   } catch ([[maybe_unused]] const std::exception &ex) {
     return result;
   }

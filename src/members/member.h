@@ -13,8 +13,13 @@ class Member {
         std::string name;
         std::string username;
         std::string active;
+        long long rank = 0;
+        int solved = 0;
+        int attempted = 0;
 
         explicit Member(const json &brief);
+
+        void fetchProfile();
 };
 
 std::vector<Member> makeMembers();
