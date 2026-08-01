@@ -38,6 +38,18 @@ deps:
 		echo "cpr not found and no AUR helper (yay/paru). Install cpr manually."; \
 		exit 1; \
 	fi
+	@if pkg-config --exists lexbor 2>/dev/null || [ -f /usr/include/lexbor/html/html.h ]; then \
+		echo "lexbor already installed"; \
+	elif command -v yay >/dev/null 2>&1; then \
+		echo "lexbor not found, installing from AUR with yay (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm lexbor; \
+	elif command -v paru >/dev/null 2>&1; then \
+		echo "lexbor not found, installing from AUR with paru (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm lexbor; \
+	else \
+		echo "lexbor not found and no AUR helper (yay/paru). Install lexbor manually."; \
+		exit 1; \
+	fi
 
 # Loads .env into the environment so std::getenv sees DISCORD_TOKEN, then runs.
 run: all

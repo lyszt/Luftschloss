@@ -5,8 +5,8 @@
 
 
 int main() {
-    BotConfig config = BotConfig();
-    dpp::cluster* bot = config.bot;
+    botConfig = new BotConfig();
+    dpp::cluster* bot = botConfig->bot;
     bot->on_log(dpp::utility::cout_logger());
 
     std::cout << "Initializing alisa-v-zadzerkalli_core\n";
