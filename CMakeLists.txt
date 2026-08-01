@@ -14,6 +14,7 @@ endif()
 # Link the prebuilt system DPP. Compiling it from source via FetchContent is
 # what exhausted RAM. Install it once with `make deps`, driven by the Makefile.
 find_package(dpp REQUIRED)
+find_package(cpr REQUIRED)
 
 # CONFIGURE_DEPENDS re-globs on rebuild so new src/**.cpp files get picked up
 # without editing this file.
@@ -22,4 +23,4 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/*.cpp)
 add_executable(alisa-v-zadzerkalli_core main.cpp ${SOURCES})
 target_include_directories(alisa-v-zadzerkalli_core PRIVATE ${CMAKE_SOURCE_DIR})
 target_compile_options(alisa-v-zadzerkalli_core PRIVATE -Wall -Wextra)
-target_link_libraries(alisa-v-zadzerkalli_core PRIVATE dpp::dpp)
+target_link_libraries(alisa-v-zadzerkalli_core PRIVATE dpp::dpp cpr::cpr)

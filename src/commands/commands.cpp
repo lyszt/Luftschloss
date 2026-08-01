@@ -4,6 +4,8 @@
 #include <dpp/dpp.h>
 #include <vector>
 
+
+// ============= UTILS ===============
 void handlePing(const dpp::slashcommand_t &e, const dpp::cluster *_bot) {
   auto start = std::chrono::steady_clock::now();
 
@@ -19,6 +21,8 @@ void handlePing(const dpp::slashcommand_t &e, const dpp::cluster *_bot) {
     e.edit_original_response(dpp::message(message));
     });
 }
+// ============ LEADERBOARDS ===========
+
 
 std::vector<Command> commands = {
     {"ping", "Sends a ping, to see if Alisa responds.", handlePing}};

@@ -26,6 +26,18 @@ deps:
 		echo "dpp not found and no AUR helper (yay/paru). Install dpp manually."; \
 		exit 1; \
 	fi
+	@if pkg-config --exists cpr 2>/dev/null || [ -f /usr/include/cpr/cpr.h ]; then \
+		echo "cpr already installed"; \
+	elif command -v yay >/dev/null 2>&1; then \
+		echo "cpr not found, installing with yay (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm cpr; \
+	elif command -v paru >/dev/null 2>&1; then \
+		echo "cpr not found, installing with paru (JOBS=$(JOBS))"; \
+		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm cpr; \
+	else \
+		echo "cpr not found and no AUR helper (yay/paru). Install cpr manually."; \
+		exit 1; \
+	fi
 
 # Loads .env into the environment so std::getenv sees DISCORD_TOKEN, then runs.
 run: all
