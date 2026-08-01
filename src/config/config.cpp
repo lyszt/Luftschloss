@@ -1,5 +1,5 @@
-#include "src/config/config.h"
+#include "./config.h"
 
 std::string BotConfig::getToken() {
-    return BotConfig::token;
+    return this->bot->token;
 }

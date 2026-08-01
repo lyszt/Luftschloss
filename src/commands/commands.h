@@ -1,12 +1,17 @@
-#include "src/commands/commands.h"
-#include <dpp/cluster.h>
+#ifndef COMMANDS_H
+#define COMMANDS_H
+
+#include <string>
+#include <functional>
+#include <vector>
 #include <dpp/dispatcher.h>
 
+struct Command {
+    std::string name;
+    std:: string description;
+    std::function<void(const dpp::slashcommand_t&)> handler;
+};
 
-BotCommands::BotCommands(dpp::cluster* bot) {
-    bot->on_slashcommand([](const dpp::slashcommand_t& event) {
-        if(event.command.get_command_name() == "ping") {
-            event.reply("pong");
-        }
-    });
-}
+extern std::vector<Command> commands;
+
+#endif

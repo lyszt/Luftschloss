@@ -1,9 +1,14 @@
-#ifndef COMMANDS_H
-#define COMMANDS_H
+#include "commands.h"
+#include <dpp/dispatcher.h>
+#include <string>
+#include <vector>
 
-#include <dpp/cluster.h>
-class BotCommands {
-public:
-    BotCommands(dpp::cluster* bot);
+
+void handlePing(const dpp::slashcommand_t& e) {
+    e.reply("pong");
+}
+
+
+std::vector<Command> commands = {
+    {"ping", "Sends a ping, to see if Alisa responds.", handlePing}   
 };
-#endif

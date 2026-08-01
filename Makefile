@@ -27,8 +27,9 @@ deps:
 		exit 1; \
 	fi
 
+# Loads .env into the environment so std::getenv sees DISCORD_TOKEN, then runs.
 run: all
-	./$(BUILD_DIR)/$(TARGET)
+	@set -a; [ -f .env ] && . ./.env; set +a; ./$(BUILD_DIR)/$(TARGET)
 
 clean:
 	$(RM) -r $(BUILD_DIR)
