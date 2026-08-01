@@ -6,10 +6,19 @@
 #include <vector>
 #include <dpp/dispatcher.h>
 
-struct Command {
-    std::string name;
-    std:: string description;
-    std::function<void(const dpp::slashcommand_t&)> handler;
+class Command {
+public:
+    const std::string name;
+    const std::string description;
+    const std::function<void(const dpp::slashcommand_t&, const dpp::cluster*)> handler;
+
+    Command(std::string name,
+            std::string description,
+            std::function<void(const dpp::slashcommand_t&, const dpp::cluster*)> handler)
+        : name(std::move(name)),
+          description(std::move(description)),
+          handler(std::move(handler))
+    {}
 };
 
 extern std::vector<Command> commands;

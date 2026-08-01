@@ -4,9 +4,9 @@
 
 BotCommands::BotCommands(dpp::cluster* bot) {
     for (auto command : commands) {
-        bot->on_slashcommand([command](const dpp::slashcommand_t& event) {
+        bot->on_slashcommand([command, bot](const dpp::slashcommand_t& event) {
             if (event.command.get_command_name() == command.name) {
-                event.reply("pong");
+                command.handler(event, bot);
             }
         });
     }
