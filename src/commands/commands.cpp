@@ -1,11 +1,11 @@
 #include "commands.h"
 #include "../config/config.h"
 #include "../members/member.h"
+#include <algorithm>
 #include <dpp/colors.h>
 #include <dpp/discordclient.h>
 #include <dpp/dispatcher.h>
 #include <dpp/dpp.h>
-#include <algorithm>
 #include <format>
 #include <functional>
 #include <vector>
@@ -34,12 +34,12 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
       dpp::embed()
           .set_title("Clube de Programação - Leaderboard")
           .set_url("https://vjudge.net/group/uffs_progclub")
-          .set_color(dpp::colors::purple_amethyst)
-          .set_image("https://i.pinimg.com/originals/11/56/71/"
-                     "115671a1a70292994ba9ed0e000dfc27.gif")
-          .set_description("Nulla enim alia re videmus populum Romanum orbem "
-                           "subegisse terrarum nisi armorum exercitio, "
-                           "disciplina castrorum usuque militiae.");
+          .set_color(dpp::colors::crimson_red)
+          .set_image("https://media4.giphy.com/media/"
+                     "v1."
+                     "Y2lkPTc5MGI3NjExa2g0dWIxeGdjdjY5ZW5sNnlucGVlODB4aXAxMWx2e"
+                     "jk4cjk5YmVjcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/"
+                     "UsAXnKt1KWr9oGlzGH/giphy.gif")  
 
   auto members = botConfig->members;
   std::sort(
@@ -49,6 +49,11 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
   std::vector<dpp::embed_field> fields;
   int fieldCount = 0;
   for (const auto &m : members) {
+    if (m.username == "kalliddel") {
+      leaderboardEmbed.set_description(std::format(
+          "**Kaldwin** - Position: {} - {} solved.",
+          fieldCount + 1, m.solved));
+    }
     if (fieldCount >= 25) {
       break;
     }
@@ -62,7 +67,9 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
   leaderboardEmbed.fields = fields;
 
   leaderboardEmbed.set_footer(
-      "[...] - See more at VJudge.",
+      "Nulla enim alia re videmus populum Romanum orbem "
+                           "subegisse terrarum nisi armorum exercitio, "
+                           "disciplina castrorum usuque militiae.",
       "https://cdn.vjudge.net.cn/group/logo/26731?v=1743077818");
 
   e.reply(dpp::message().add_embed(leaderboardEmbed));

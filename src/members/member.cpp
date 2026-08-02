@@ -4,6 +4,8 @@
 #include <chrono>
 #include <string>
 #include <iostream>
+#include <future>
+#include <vector>
 
 namespace {
 
@@ -122,13 +124,23 @@ std::vector<Member> makeMembers() {
     std::cout << "[INFO] Found " << data["memberBriefs"].size()
               << " members, fetching profiles..." << std::endl;
     for (const auto &brief : data["memberBriefs"]) {
-      Member member(brief);
-      member.fetchProfile();
-      result.push_back(std::move(member));
+      result.emplace_back(brief);
+    }
+    result.emplace_back(json{{"username", "kalliddel"}});
+
+    std::vector<std::future<void>> pending;
+    pending.reserve(result.size());
+    for (auto &member : result) {
+      pending.push_back(
+          std::async(std::launch::async, [&member] { member.fetchProfile(); }));
+    }
+    for (auto &f : pending) {
+      f.get();
     }
     std::cout << "[INFO] Loaded " << result.size() << " member profiles."
               << std::endl;
-  } catch ([[maybe_unused]] const std::exception &ex) {
+  } catch (const std::exception &ex) {
+    std::cout << "[ERROR] makeMembers threw: " << ex.what() << "." << std::endl;
     return result;
   }
 
