@@ -46,14 +46,19 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
       members.begin(), members.end(),
       [](const Member &a, const Member &b) { return a.solved > b.solved; });
 
+  auto self = std::find_if(members.begin(), members.end(), [](const Member &m) {
+    return m.username == "kalliddel";
+  });
+  if (self != members.end()) {
+    int position = static_cast<int>(std::distance(members.begin(), self)) + 1;
+    leaderboardEmbed.set_description(std::format(
+        "**Kaldwin** - Position: {} - {} solved.", position, self->solved));
+  }
+
   std::vector<dpp::embed_field> fields;
   int fieldCount = 0;
   for (const auto &m : members) {
-    if (m.username == "kalliddel") {
-      leaderboardEmbed.set_description(std::format(
-          "**Kaldwin** - Position: {} - {} solved.",
-          fieldCount + 1, m.solved));
-    }
+    if(m.username == "kalliddel") continue;
     if (fieldCount >= 25) {
       break;
     }
