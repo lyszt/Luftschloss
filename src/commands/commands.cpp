@@ -39,7 +39,7 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
                      "v1."
                      "Y2lkPTc5MGI3NjExa2g0dWIxeGdjdjY5ZW5sNnlucGVlODB4aXAxMWx2e"
                      "jk4cjk5YmVjcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/"
-                     "UsAXnKt1KWr9oGlzGH/giphy.gif")  
+                     "UsAXnKt1KWr9oGlzGH/giphy.gif");
 
   auto members = botConfig->members;
   std::sort(

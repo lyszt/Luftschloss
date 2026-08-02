@@ -126,7 +126,6 @@ std::vector<Member> makeMembers() {
     for (const auto &brief : data["memberBriefs"]) {
       result.emplace_back(brief);
     }
-    result.emplace_back(json{{"username", "kalliddel"}});
 
     std::vector<std::future<void>> pending;
     pending.reserve(result.size());
