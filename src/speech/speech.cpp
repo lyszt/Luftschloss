@@ -36,10 +36,13 @@ std::string join_problems(const std::vector<std::string> &problems) {
 
 std::string build_member_context() {
   std::string context;
-  for (const Member &member : botConfig->members) {
-    context += std::format("{} ({}) solved {} problems. {}\n", member.name,
-                           member.username, member.solved,
-                           join_problems(member.solved_problems));
+  const std::vector<Member> &members = botConfig->members;
+  for (size_t i = 0; i < members.size(); ++i) {
+    const Member &member = members[i];
+    context += std::format(
+        "{}. {} ({}) solved {} problems, active {}. {}\n", i + 1, member.name,
+        member.username, member.solved, member.active,
+        join_problems(member.solved_problems));
   }
   return context;
 }
