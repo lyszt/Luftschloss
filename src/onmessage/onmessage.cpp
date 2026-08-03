@@ -5,6 +5,9 @@
 bool verify_references_alisa(const dpp::message &message, dpp::cluster *bot)
 {
     std::string msg = message.content;
+    std::transform(msg.begin(), msg.end(), msg.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
 
     const bool mentioned = std::any_of(
         message.mentions.begin(), message.mentions.end(),
