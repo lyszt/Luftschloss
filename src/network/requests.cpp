@@ -6,7 +6,7 @@
 void Requests::request(Method method, std::string &url,
                        std::optional<json> body) {
   session.SetUrl(cpr::Url{url});
-  session.SetTimeout(cpr::Timeout{20000});
+  session.SetTimeout(cpr::Timeout{timeout_ms});
   session.SetHeader({{"Content-Type", "application/json"}});
   session.SetBody(body ? cpr::Body{body->dump()} : cpr::Body{});
   switch (method) {

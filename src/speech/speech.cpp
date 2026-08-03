@@ -63,7 +63,12 @@ std::string fetch_quick_answer(const dpp::message &message)
                   {"light", true}};
 
   Requests request;
+  request.timeout_ms = 200000;
   request.request(Method::Post, url, payload);
+  if(request.response.status_code == 0) {
+    std::cout << "[ERROR] Providence request timed out." << std::endl;
+    return "Providence did not answer.";
+  }
   if(request.response.status_code == 403) {
     return "Sorry, I can't talk to you.";
   }
