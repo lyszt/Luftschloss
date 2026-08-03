@@ -1,4 +1,5 @@
 #include "speech.h"
+#include "../config/config.h"
 #include "../network/requests.h"
 #include <format>
 #include <iostream>
@@ -22,14 +23,39 @@ std::string clamp_to_reply_limit(std::string text) {
   return text + "...";
 }
 
+std::string join_problems(const std::vector<std::string> &problems) {
+  std::string joined;
+  for (const std::string &problem : problems) {
+    if (!joined.empty()) {
+      joined += ", ";
+    }
+    joined += problem;
+  }
+  return joined;
+}
+
+std::string build_member_context() {
+  std::string context;
+  for (const Member &member : botConfig->members) {
+    context += std::format("{} ({}) solved {} problems. {}\n", member.name,
+                           member.username, member.solved,
+                           join_problems(member.solved_problems));
+  }
+  return context;
+}
+
 }
 
 std::string fetch_quick_answer(const dpp::message &message)
 {
   std::string url = std::format("http://127.0.0.1:{}/speech/deepthink/", PORT);
-  std::cout << "[INFO] Generating message for user." << std::endl;
+  std::string prompt = std::format("{}\n-- CLUB MEMBERS\n{}-- MOST SOLVED\n{}\n",
+                                   message.content, build_member_context(),
+                                   join_problems(botConfig->most_solved));
+  std::cout << "[INFO] Generating message for user, prompt is "
+            << prompt.size() << " bytes." << std::endl;
 
-  json payload = {{"prompt", message.content},
+  json payload = {{"prompt", prompt},
                   {"username", "discord:" + message.author.username},
                   {"light", true}};
 

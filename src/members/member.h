@@ -1,6 +1,7 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
+#include "../network/requests.h"
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -17,10 +18,11 @@ class Member {
         long long rank = 0;
         int solved = 0;
         int attempted = 0;
+        std::vector<std::string> solved_problems;
 
         explicit Member(const json &brief);
 
-        void fetchProfile();
+        void fetchProfile(Requests &request);
 };
 
 std::vector<Member> makeMembers();

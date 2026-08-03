@@ -11,8 +11,11 @@
 struct BotConfig
 {
   std::string getToken();
+  std::vector<std::string> getTopKFrequent(const std::vector<std::string> &items,
+                                           int k);
   dpp::cluster *bot;
   std::vector<Member> members;
+  std::vector<std::string> most_solved;
   BotConfig()
   {
     const char *token = std::getenv("DISCORD_TOKEN");
@@ -23,6 +26,14 @@ struct BotConfig
         members.begin(), members.end(),
         [](const Member &a, const Member &b)
         { return a.solved > b.solved; });
+
+    std::vector<std::string> allSolved;
+    for (const Member &member : members)
+    {
+      allSolved.insert(allSolved.end(), member.solved_problems.begin(),
+                       member.solved_problems.end());
+    }
+    most_solved = getTopKFrequent(allSolved, 10);
 
     BotCommands command_handler(bot);
     OnReady on_ready(bot);

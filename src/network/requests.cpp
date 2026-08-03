@@ -5,28 +5,25 @@
 
 void Requests::request(Method method, std::string &url,
                        std::optional<json> body) {
-  cpr::Url cpr_url = cpr::Url{url};
-  cpr::Body cpr_body = body ? cpr::Body{body->dump()} : cpr::Body{};
-  cpr::Header header = {{"Content-Type", "application/json"}};
-  cpr::Response r;
+  session.SetUrl(cpr::Url{url});
+  session.SetTimeout(cpr::Timeout{20000});
+  session.SetHeader({{"Content-Type", "application/json"}});
+  session.SetBody(body ? cpr::Body{body->dump()} : cpr::Body{});
   switch (method) {
   case Method::Get:
-    r = cpr::Get(cpr_url);
+    response = session.Get();
     break;
   case Method::Post:
-    r = cpr::Post(cpr_url, header, cpr_body);
+    response = session.Post();
     break;
   case Method::Put:
-    r = cpr::Put(cpr_url, header, cpr_body);
+    response = session.Put();
     break;
   case Method::Delete:
-    r = cpr::Delete(cpr_url, header, cpr_body);
+    response = session.Delete();
     break;
   case Method::Patch:
-    r = cpr::Patch(cpr_url, header, cpr_body);
+    response = session.Patch();
     break;
-  default:
-    break;
-  };
-  this->response = r;
+  }
 }

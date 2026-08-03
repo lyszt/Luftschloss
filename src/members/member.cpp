@@ -1,13 +1,16 @@
 #include "member.h"
 #include "../network/requests.h"
 #include "../parser/parser.h"
+#include <atomic>
 #include <chrono>
 #include <string>
 #include <iostream>
-#include <future>
+#include <thread>
 #include <vector>
 
 namespace {
+
+const size_t FETCH_WORKERS = 8;
 
 std::string activeSince(long long epochMs) {
   auto now = std::chrono::system_clock::now();
@@ -54,14 +57,13 @@ Member::Member(const json &brief) {
   active = activeSince(brief.value("lastSeenTime", 0LL));
 }
 
-void Member::fetchProfile() {
+void Member::fetchProfile(Requests &request) {
   if (username.empty()) {
     std::cout << "[WARN] Skipping profile fetch, empty username." << std::endl;
     return;
   }
   std::string url = "https://vjudge.net/user/" + username;
   std::cout << "[INFO] Fetching profile for " << username << "..." << std::endl;
-  Requests request = Requests();
   request.request(Method::Get, url, std::nullopt);
   if (request.response.status_code != 200) {
     std::cout << "[ERROR] Profile fetch for " << username << " returned status "
@@ -95,9 +97,31 @@ void Member::fetchProfile() {
               << ex.what() << "." << std::endl;
     return;
   }
-}
 
-std::vector<Member> members;
+  std::string solvedUrl = "https://vjudge.net/user/solveDetail/" + username;
+  request.request(Method::Get, solvedUrl, std::nullopt);
+  if (request.response.status_code != 200) {
+    std::cout << "[ERROR] Solved list for " << username << " returned status "
+              << request.response.status_code << "." << std::endl;
+    return;
+  }
+
+  try {
+    json detail = json::parse(request.response.text);
+    json records = detail.value("acRecords", json::object());
+    for (auto judge = records.begin(); judge != records.end(); ++judge) {
+      for (const auto &problem : judge.value()) {
+        solved_problems.push_back(judge.key() + "-" +
+                                  problem.get<std::string>());
+      }
+    }
+    std::cout << "[INFO] " << username << " listed "
+              << solved_problems.size() << " solved problems." << std::endl;
+  } catch (const std::exception &ex) {
+    std::cout << "[ERROR] Solved list parse for " << username << " threw: "
+              << ex.what() << "." << std::endl;
+  }
+}
 
 std::vector<Member> makeMembers() {
   std::cout << "[INFO] Fetching members from the Programming Club..." << std::endl;
@@ -127,14 +151,18 @@ std::vector<Member> makeMembers() {
       result.emplace_back(brief);
     }
 
-    std::vector<std::future<void>> pending;
-    pending.reserve(result.size());
-    for (auto &member : result) {
-      pending.push_back(
-          std::async(std::launch::async, [&member] { member.fetchProfile(); }));
+    std::atomic<size_t> next{0};
+    std::vector<std::thread> workers;
+    for (size_t w = 0; w < FETCH_WORKERS; ++w) {
+      workers.emplace_back([&result, &next] {
+        Requests request;
+        for (size_t i = next++; i < result.size(); i = next++) {
+          result[i].fetchProfile(request);
+        }
+      });
     }
-    for (auto &f : pending) {
-      f.get();
+    for (std::thread &worker : workers) {
+      worker.join();
     }
     std::cout << "[INFO] Loaded " << result.size() << " member profiles."
               << std::endl;
