@@ -42,10 +42,6 @@ void handleVJudgeLeaderboard(const dpp::slashcommand_t &e,
                      "UsAXnKt1KWr9oGlzGH/giphy.gif");
 
   auto members = botConfig->members;
-  std::sort(
-      members.begin(), members.end(),
-      [](const Member &a, const Member &b) { return a.solved > b.solved; });
-
   auto self = std::find_if(members.begin(), members.end(), [](const Member &m) {
     return m.username == "kalliddel";
   });

@@ -5,6 +5,9 @@ TARGET    := alisa-v-zadzerkalli_core
 # core at once and can exhaust RAM. Override on the command line: make JOBS=4
 JOBS ?= 2
 
+YAY  := yay -S --needed --noconfirm --answerclean None --answerdiff None --answeredit None --answerupgrade None
+PARU := paru -S --needed --noconfirm --skipreview
+
 .PHONY: all deps run clean rebuild
 
 all: deps
@@ -18,10 +21,10 @@ deps:
 		echo "dpp already installed"; \
 	elif command -v yay >/dev/null 2>&1; then \
 		echo "dpp not found, installing from AUR with yay (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm dpp; \
+		MAKEFLAGS="-j$(JOBS)" $(YAY) dpp; \
 	elif command -v paru >/dev/null 2>&1; then \
 		echo "dpp not found, installing from AUR with paru (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm dpp; \
+		MAKEFLAGS="-j$(JOBS)" $(PARU) dpp; \
 	else \
 		echo "dpp not found and no AUR helper (yay/paru). Install dpp manually."; \
 		exit 1; \
@@ -30,10 +33,10 @@ deps:
 		echo "cpr already installed"; \
 	elif command -v yay >/dev/null 2>&1; then \
 		echo "cpr not found, installing with yay (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm cpr; \
+		MAKEFLAGS="-j$(JOBS)" $(YAY) --mflags --nocheck cpr; \
 	elif command -v paru >/dev/null 2>&1; then \
 		echo "cpr not found, installing with paru (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm cpr; \
+		MAKEFLAGS="-j$(JOBS)" $(PARU) --mflags --nocheck cpr; \
 	else \
 		echo "cpr not found and no AUR helper (yay/paru). Install cpr manually."; \
 		exit 1; \
@@ -42,10 +45,10 @@ deps:
 		echo "lexbor already installed"; \
 	elif command -v yay >/dev/null 2>&1; then \
 		echo "lexbor not found, installing from AUR with yay (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" yay -S --needed --noconfirm lexbor; \
+		MAKEFLAGS="-j$(JOBS)" $(YAY) lexbor; \
 	elif command -v paru >/dev/null 2>&1; then \
 		echo "lexbor not found, installing from AUR with paru (JOBS=$(JOBS))"; \
-		MAKEFLAGS="-j$(JOBS)" paru -S --needed --noconfirm lexbor; \
+		MAKEFLAGS="-j$(JOBS)" $(PARU) lexbor; \
 	else \
 		echo "lexbor not found and no AUR helper (yay/paru). Install lexbor manually."; \
 		exit 1; \

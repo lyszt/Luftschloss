@@ -6,10 +6,7 @@
 void Requests::request(Method method, std::string &url,
                        std::optional<json> body) {
   cpr::Url cpr_url = cpr::Url{url};
-  cpr::Body cpr_body = {};
-  if (body) {
-    cpr::Body cpr_body = cpr::Body{body->dump()};
-  }
+  cpr::Body cpr_body = body ? cpr::Body{body->dump()} : cpr::Body{};
   cpr::Header header = {{"Content-Type", "application/json"}};
   cpr::Response r;
   switch (method) {
@@ -17,9 +14,6 @@ void Requests::request(Method method, std::string &url,
     r = cpr::Get(cpr_url);
     break;
   case Method::Post:
-    if (!body) {
-      break;
-    }
     r = cpr::Post(cpr_url, header, cpr_body);
     break;
   case Method::Put:

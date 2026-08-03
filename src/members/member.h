@@ -13,6 +13,7 @@ class Member {
         std::string name;
         std::string username;
         std::string active;
+        bool top_3 = false;
         long long rank = 0;
         int solved = 0;
         int attempted = 0;
