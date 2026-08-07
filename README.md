@@ -12,10 +12,6 @@ reflected, backwards, and wrong.
 
 A Discord bot written in C++.
 
-A Discord bot has no reason to be written in C++. It has even less reason to
-reach for hand-written assembly. None of it is necessary. All of it is the
-point.
-
 ## Capabilities
 
 ### Slash commands
